@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Panel</title>
+
+<style>
+body {
+    margin: 0;
+    background: #000;
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.card {
+    width: 500px;
+    background: #0f0f0f;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(255,0,0,0.4);
+    padding: 20px;
+    color: white;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.hide-btn {
+    background: transparent;
+    border: 1px solid yellow;
+    color: yellow;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    margin-top: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.tab {
+    margin-right: 25px;
+    padding-bottom: 6px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.tab.active {
+    color: white;
+    border-bottom: 2px solid red;
+}
+
+/* Sections */
+.section {
+    display: none;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.section.active {
+    display: flex;
+}
+
+/* Image */
+.game-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background: url('https://i.imgur.com/3ZQ3Z4F.png') center/cover;
+    margin-right: 20px;
+}
+
+/* Buttons */
+.buttons {
+    flex: 1;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ff4d4d;
+    background: linear-gradient(to right, #2b0000, #550000);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: red;
+    box-shadow: 0 0 15px red;
+}
+
+/* Dropdown */
+.dropdown {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid #444;
+}
+
+/* Row */
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.row .btn {
+    width: 50%;
+}
+
+/* Status */
+#status, #installStatus {
+    font-size: 14px;
+    color: #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="header">
+        <div class="title">⚡ ADVANCED BYPASS</div>
+        <button class="hide-btn" onclick="hideCard()">Hide</button>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('bypass', this)">Bypass Menu</div>
+        <div class="tab" onclick="switchTab('installer', this)">Installer Menu</div>
+    </div>
+
+    <!-- 🔴 BYPASS -->
+    <div id="bypass" class="section active">
+        <div class="game-img"></div>
+        <div class="buttons">
+            <button class="btn" onclick="connect()">CONNECT</button>
+            <button class="btn" onclick="disconnect()">DISCONNECT</button>
+            <p id="status">Status: Disconnected</p>
+        </div>
+    </div>
+
+    <!-- 🟡 INSTALLER -->
+    <div id="installer" class="section">
+        <div class="game-img"></div>
+
+        <div class="buttons">
+
+            <!-- DROPDOWN -->
+            <select class="dropdown">
+                <option>MSI</option>
+                <option>BlueStacks</option>
+                <option>LD Player</option>
+            </select>
+
+            <!-- PATCH -->
+            <button class="btn" onclick="patch()">PATCH YOUR EMULATOR</button>
+
+            <!-- CERTIFICATE BUTTONS -->
+            <div class="row">
+                <button class="btn" onclick="installCert()">INSTALL - CERTIFICATE</button>
+                <button class="btn" onclick="removeCert()">REMOVE - CERTIFICATE</button>
+            </div>
+
+            <p id="installStatus">Ready</p>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+function switchTab(tab, el) {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+
+    document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById(tab).classList.add("active");
+}
+
+function connect() {
+    document.getElementById("status").innerText = "Status: Connected";
+}
+
+function disconnect() {
+    document.getElementById("status").innerText = "Status: Disconnected";
+}
+
+function patch() {
+    document.getElementById("installStatus").innerText = "Patching Emulator...";
+    setTimeout(() => {
+        document.getElementById("installStatus").innerText = "Patch Done ✅";
+    }, 2000);
+}
+
+function installCert() {
+    document.getElementById("installStatus").innerText = "Installing Certificate...";
+    setTimeout(() => {
+        document.getElementById("installStatus").innerText = "Installed ✅";
+    }, 2000);
+}
+
+function removeCert() {
+    document.getElementById("installStatus").innerText = "Removing Certificate...";
+    setTimeout(() => {
+        document.getElementById("installStatus").innerText = "Removed ❌";
+    }, 2000);
+}
+
+function hideCard() {
+    const card = document.querySelector(".card");
+    card.style.opacity = "0";
+    setTimeout(() => card.style.display = "none", 300);
+}
+</script>
+
+</body>
+</html>
